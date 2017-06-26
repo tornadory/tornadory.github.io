@@ -46,7 +46,47 @@ function playStream(idVideoTag, stream){
 //const conn = peer.connect('lfpz7smzx1e2ke29');
 
 //const peer = new Peer({key: 'lfpz7smzx1e2ke29'});
-const peer = new Peer({key:'peerjs', host:'peerjs-webrtc-server.herokuapp.com', secure:true, port: 443});
+
+//const peer = new Peer({key:'peerjs', host:'peerjs-webrtc-server.herokuapp.com', secure:true, port: 443});
+
+//use xirsys
+// This object will take in an array of XirSys STUN / TURN servers
+// and override the original config object
+var customConfig;
+
+// Call XirSys ICE servers
+$.ajax({
+  url: "https://service.xirsys.com/ice",
+  data: {
+    ident: "tornadory",
+    secret: "c689720a-5a45-11e7-9db9-18a16628344d",
+    domain: "tornadory.github.io",
+    application: "default",
+    room: "default",
+    secure: 1
+  },
+  success: function (data, status) {
+    // data.d is where the iceServers object lives
+    customConfig = data.d;
+    console.log(customConfig);
+  },
+  async: false
+});
+
+// PeerJS object
+const peer = new Peer({
+  key:'peerjs',
+  host:'peerjs-webrtc-server.herokuapp.com',
+  secure:true,
+  port: 443,
+  config: customConfig
+});
+//var peer = new Peer({
+//  key: 'Your PeerServer cloud API key',
+//  debug: 3,
+//  config: customConfig
+//});
+//end use xirsys
 
 peer.on('open', id => {
     $('#my-peer').append(id);
@@ -65,6 +105,7 @@ $('#btnCall').click(() => {
        call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
     });
 });
+
 peer.on('call', call => {
     openStream().then( stream =>{
         call.answer(stream);
@@ -77,7 +118,7 @@ $('#ulUser').on('click', 'li', function(){
     console.log($(this).attr('id')); //peerId
     const id = $(this).attr('id');
     openStream().then(stream => {
-    playStream('localStream', stream);
+        playStream('localStream', stream);
        const call = peer.call(id, stream);
        call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
     });
