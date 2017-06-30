@@ -43,7 +43,7 @@ var renderer = new THREE.WebGLRenderer({
 });
 
 // to easily control stuff on the display
-var hud = new THREE.CSS3DArgonHUD();
+//var hud = new THREE.CSS3DArgonHUD();
 // var description = document.getElementById('description');
 // hud.hudElements[0].appendChild(description);
 // app.view.element.appendChild(hud.domElement);
@@ -86,7 +86,7 @@ app.renderEvent.addEventListener(function () {
     renderer.setSize(view.renderWidth, view.renderHeight, false);
     renderer.setPixelRatio(app.suggestedPixelRatio);
     var viewport = view.viewport;
-    hud.setSize(viewport.width, viewport.height);
+    //hud.setSize(viewport.width, viewport.height);
     // There is 1 subview in monocular mode, 2 in stereo mode.
     // If we are in mono view, show the description.  If not, hide it,
     if (app.view.subviews.length > 1) {
@@ -114,8 +114,8 @@ app.renderEvent.addEventListener(function () {
         renderer.render(scene, camera);
         // adjust the hud
         var _c = subview.viewport, x = _c.x, y = _c.y, width = _c.width, height = _c.height;
-        hud.setViewport(x, y, width, height, subview.index);
-        hud.render(subview.index);
+        //hud.setViewport(x, y, width, height, subview.index);
+        //hud.render(subview.index);
     }
     stats.update();
 });
