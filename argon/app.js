@@ -19,7 +19,8 @@ loader.load( "box.png", function ( texture ) {
     box.add( mesh );
 });
 boxGeoObject.add(box);
-scene.add(boxGeoObject);
+userLocation.add(boxGeoObject);
+//scene.add(boxGeoObject);
 
 var renderer = new THREE.WebGLRenderer({
     alpha: true,
