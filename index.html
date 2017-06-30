@@ -2,28 +2,42 @@
 <html lang="en">
 <head>
     <title>WebRTC</title>
+    <style>
+      html{
+        background: #E0A01F;
+        color: black;
+        font-family: sans-serif;
+        font-size: 20px;
+        padding: 10px 20px;
+      }
+
+      a{
+        color: black;
+      }
+
+      .sample{
+        display: block;
+        padding: 5px 0;
+      }
+    </style>
     <script src="js/jquery-3.2.1.js" ></script>
-    <script src="js/peer.js"></script>
-    <script src="js/socket.io.js"></script>
 </head>
 <body>
-    <div id="div-chat">
-        <p>Online Users:</p>
-        <ul id="ulUser">
-        </ul>
-        <h3 id="my-peer"></h3>
-        <video id="localStream" width="300" controls></video>
-        <br/><br/>
-        <video id="remoteStream" width="300" controls></video>
-        <br/><br/>
-        <input type="text" id="remoteId" placeholder="Remote ID">
-        <button id="btnCall">Call</button>
+    <div id="div-title">
     </div>
-    <div id="div-dang-ky">
-        <br/><br/>
-        <input type="text" id="txtUsername" placeholder="Enter Your Name">
-        <button id="btnSignUp">Sign Up</button>
+    <div id="div-contents">
+      <ul>
+        <li>
+          <span class="sample"><a href="webrtc01.html">WebRTC Test</a></span>
+        </li>
+        <li>
+          <span class="sample"><a href="argon/argon01.html">ARGON JS Test 01</a></span>
+        </li>
+        <li>
+          <span class="sample"></span>
+        </li>
+      </ul>
     </div>
+
 </body>
-<script src="main.js"></script>
 </html>
