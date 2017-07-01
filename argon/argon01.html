@@ -1,57 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARGON JS Demo 01</title>
-  <script src="lib/three/three.min.js"></script>
-  <script src="./argon.min.js"></script>
-  <script src="lib/CSS3DArgonHUD.js"></script>
-  <script src="lib/ArgonSunMoon.js"></script>
-
-  <style>
-#description {
-  pointer-events: auto;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  padding: 10px;
-  background-color:rgba(255,255,255,0.7);
-  -webkit-backdrop-filter: blur(5px);
-  position:absolute;
-  bottom: 0px;
-}
-.argon-focus #description {
-  transition: opacity 0.8s;
-  visibility: visible;
-  opacity: 1;
-}
-.argon-no-focus #description {
-  transition: visibility 0s linear 0.8s, opacity 0.8s;
-  visibility: visible;
-  opacity: 0;
-}
-    </style>
-
-</head>
-<body>
-<div id="argon">
-
-
-  <div>
-          <div onclick="hideMe(this)" id="description">
-            <h1> ARGON REALMAX DEMO</h1>
-            <h2>Six directions in WebGL</h2>
-            <h5>(click to dismiss)</h5>
-            <p>This example displays a directional reference frame around the camera in Cartesian coordinates, using the EastUpSouth orientation for positive (x, y, z). A userLocation geospatial entity is created and positioned at the position of the user, and updated when the user's position changes. It uses WebGL to put a sphere at 200 meters and a text label at 100 meters in each of the negative/positive directions: x is west/east; y is down/up; z is north/south.</p>
-          </div>
-  </div>
-
-
-
-</div>
-
-
-</body>
-
-<script src="app.js"></script>
-
+<html>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <head>
+    <title>Geo</title>
+    <script src="lib/three/three.min.js"></script>
+    <script src="./argon.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div id="argon">
+      <div onclick="hideMe(this)" id="description" >
+        <h2>A Simple Geo example</h2>
+        <h5>(click to dismiss)</h5>
+        <p>This example takes the current location of the viewer, and positions a cube a small distance away from where the viewer was positioned when the example was loaded.  We do this by adding a small amount to our current east-west location, in the local Three.js cartesian coordinates.  This illustrates how to create geospatial content based on the current location, and update the internal geospatial location of the object.</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    function hideMe(elem) {
+        elem.style.display = 'none';
+    } 
+  </script>  <script src="./app.js"></script>
 </html>
