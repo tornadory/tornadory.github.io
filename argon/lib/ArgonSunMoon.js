@@ -53,8 +53,7 @@ Argon.UpdateSunMoon = function() {
                 entities.moon.position.setValue(translation, frame);
                 translation.clone(retVal.moon);
             } else {
-                retVal.moon.x = -0.1;
-                retVal.moon.z = -0.1;
+                retVal.moon.x = retVal.moon.z = 0;
                 retVal.moon.y = -1;
             }
         }
@@ -68,8 +67,7 @@ Argon.UpdateSunMoon = function() {
                 entities.sun.position.setValue(translation, frame);
                 translation.clone(retVal.sun);
             } else {
-                retVal.sun.x = 0.1;
-                retVal.sun.z = 0.1;
+                retVal.sun.x = retVal.sun.z = 0;
                 retVal.sun.y = 1;
             }
         }
