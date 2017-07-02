@@ -83,7 +83,7 @@ app.context.setDefaultReferenceFrame(app.context.localOriginEastUpSouth);
 // create a 100m cube with a Buzz texture on it, that we will attach to a geospatial object at Georgia Tech
 var buzz = new THREE.Object3D;
 var loader = new THREE.TextureLoader();
-loader.load('realmax.jpg', function (texture) {
+loader.load('buzz.png', function (texture) {
     var geometry = new THREE.BoxGeometry(10, 10, 10);
     var material = new THREE.MeshBasicMaterial({ map: texture });
     var mesh = new THREE.Mesh(geometry, material);
