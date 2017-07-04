@@ -1,5 +1,9 @@
 
 var app = Argon.init();
+
+
+var boxInit = false;
+
 //app.view.element.style.zIndex = 0;
 // this app uses geoposed content, so subscribe to geolocation updates
 // app.context.subscribeGeolocation({ enableHighAccuracy: true });
@@ -39,7 +43,6 @@ boxGeoObject.position.x = 5;
 boxGeoObject.position.y = 5;
 scene.add(boxGeoObject);
 
-var boxInit = false;
 
 app.updateEvent.addEventListener(function (frame) {
 
