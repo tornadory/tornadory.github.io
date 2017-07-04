@@ -63,7 +63,7 @@ app.renderEvent.addEventListener(function () {
         var frustum = subview.frustum;
         // set the position and orientation of the camera for
         // this subview
-        console.log("subview pos " + subview.pos.position);
+        console.log("subview pos " + subview.pose.position);
         camera.position.copy(subview.pose.position);
         camera.quaternion.copy(subview.pose.orientation);
         // the underlying system provide a full projection matrix
