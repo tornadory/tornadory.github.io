@@ -8,7 +8,7 @@ var renderer = new THREE.WebGLRenderer();
 var box = new THREE.Object3D();
 var loader = new THREE.TextureLoader();
 loader.load('box.png', function (texture) {
-    var geometry = new THREE.BoxGeometry(10, 10, 10);
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
     var material = new THREE.MeshBasicMaterial({ map: texture });
     var mesh = new THREE.Mesh(geometry, material);
     box.add(mesh);
@@ -20,6 +20,7 @@ box.position.z = 1;
 scene.add(box);
 
 function anim(){
+  console.log("run anim");
   requestAnimationFrame(anim);
   box.rotateY += 0.1;
   renderer.render(scene, camera);
