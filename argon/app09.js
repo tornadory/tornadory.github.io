@@ -57,39 +57,39 @@ app.updateEvent.addEventListener(function (frame) {
     }
     // the first time through, we create a geospatial position for
     // the box somewhere near us
-    if (!boxInit) {
-        var userPose = app.context.getEntityPose(app.context.user);
-
-        var defaultFrame = app.context.getDefaultReferenceFrame();
-        // set the box's position to 10 meters away from the user.
-        // First, clone the userPose postion, and add 10 to the X
-        var boxPos_1 = userPose.position.clone();
-        boxPos_1.z -= 10;
-        // set the value of the box Entity to this local position, by
-        // specifying the frame of reference to our local frame
-        boxGeoEntity.position.setValue(boxPos_1, defaultFrame);
-        if (Argon.convertEntityReferenceFrame(boxGeoEntity, frame.time, ReferenceFrame.FIXED)) {
-            // we will keep trying to reset it to FIXED until it works!
-            boxInit = true;
-        }
-    }
+    // if (!boxInit) {
+    //     var userPose = app.context.getEntityPose(app.context.user);
+    //
+    //     var defaultFrame = app.context.getDefaultReferenceFrame();
+    //     // set the box's position to 10 meters away from the user.
+    //     // First, clone the userPose postion, and add 10 to the X
+    //     var boxPos_1 = userPose.position.clone();
+    //     boxPos_1.z -= 10;
+    //     // set the value of the box Entity to this local position, by
+    //     // specifying the frame of reference to our local frame
+    //     boxGeoEntity.position.setValue(boxPos_1, defaultFrame);
+    //     if (Argon.convertEntityReferenceFrame(boxGeoEntity, frame.time, ReferenceFrame.FIXED)) {
+    //         // we will keep trying to reset it to FIXED until it works!
+    //         boxInit = true;
+    //     }
+    // }
     // get the local coordinates of the local box, and set the THREE object
-    var boxPose = app.context.getEntityPose(boxGeoEntity);
-    if (boxPose.poseStatus & Argon.PoseStatus.KNOWN) {
-        boxGeoObject.position.copy(boxPose.position);
-        boxGeoObject.quaternion.copy(boxPose.orientation);
-    }
-    // get the local coordinates of the GT box, and set the THREE object
-    var geoPose = app.context.getEntityPose(gatechGeoEntity);
-    if (geoPose.poseStatus & Argon.PoseStatus.KNOWN) {
-        gatechGeoTarget.position.copy(geoPose.position);
-    }
-    else {
-        // initialize to a fixed location in case we can't convert to geospatial
-        gatechGeoTarget.position.y = 0;
-        gatechGeoTarget.position.z = -4000;
-        gatechGeoTarget.position.x = 1000;
-    }
+    // var boxPose = app.context.getEntityPose(boxGeoEntity);
+    // if (boxPose.poseStatus & Argon.PoseStatus.KNOWN) {
+    //     boxGeoObject.position.copy(boxPose.position);
+    //     boxGeoObject.quaternion.copy(boxPose.orientation);
+    // }
+    // // get the local coordinates of the GT box, and set the THREE object
+    // var geoPose = app.context.getEntityPose(gatechGeoEntity);
+    // if (geoPose.poseStatus & Argon.PoseStatus.KNOWN) {
+    //     gatechGeoTarget.position.copy(geoPose.position);
+    // }
+    // else {
+    //     // initialize to a fixed location in case we can't convert to geospatial
+    //     gatechGeoTarget.position.y = 0;
+    //     gatechGeoTarget.position.z = -4000;
+    //     gatechGeoTarget.position.x = 1000;
+    // }
     // rotate the boxes at a constant speed, independent of frame rates
     // to make it a little less boring
     box.rotateY(3 * frame.deltaTime / 10000);
