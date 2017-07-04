@@ -31,7 +31,7 @@ var boxGeoObject = new THREE.Object3D;
 var box = new THREE.Object3D();
 var loader = new THREE.TextureLoader();
 loader.load('box.png', function (texture) {
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
+    var geometry = new THREE.BoxGeometry(10, 10, 10);
     var material = new THREE.MeshBasicMaterial({ map: texture });
     var mesh = new THREE.Mesh(geometry, material);
     box.add(mesh);
@@ -109,6 +109,7 @@ app.renderEvent.addEventListener(function () {
         var frustum = subview.frustum;
         // set the position and orientation of the camera for
         // this subview
+        console.log("subview pos " + subview.pos.position);
         camera.position.copy(subview.pose.position);
         camera.quaternion.copy(subview.pose.orientation);
         // the underlying system provide a full projection matrix
