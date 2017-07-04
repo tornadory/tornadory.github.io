@@ -11,10 +11,8 @@ var app = Argon.init();
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera();
 var stage = new THREE.Object3D;
-var user = new THREE.Object3D;
 scene.add(camera);
 scene.add(stage);
-scene.add(user);
 
 var renderer = new THREE.WebGLRenderer({
     alpha: true,
@@ -41,43 +39,9 @@ boxGeoObject.position.x = 5;
 boxGeoObject.position.y = 5;
 scene.add(boxGeoObject);
 
-var boxLocDiv = document.getElementById("box-location");
-var boxLocDiv2 = boxLocDiv.cloneNode(true);
-var boxLabel = new THREE.CSS3DSprite([boxLocDiv, boxLocDiv2]);
-boxLabel.scale.set(0.02, 0.02, 0.02);
-boxLabel.position.set(0, 1.25, 0);
-boxGeoObject.add(boxLabel);
-// putting position and orientation in the constructor above is the
-// equivalent of doing this:
-//
-//     const boxPosition = new Cesium.ConstantPositionProperty
-//                   (Cartesian3.ZERO.clone(), ReferenceFrame.FIXED);
-//     boxGeoEntity.position = boxPosition;
-//     const boxOrientation = new Cesium.ConstantProperty(Cesium.Quaternion);
-//     boxOrientation.setValue(Cesium.Quaternion.IDENTITY);
-//     boxGeoEntity.orientation = boxOrientation;
 
-var boxInit = false;
-var boxCartographicDeg = [0, 0, 0];
-var lastInfoText = "";
-var lastBoxText = "";
-// make floating point output a little less ugly
-function toFixed(value, precision) {
-    var power = Math.pow(10, precision || 0);
-    return String(Math.round(value * power) / power);
-}
-// the updateEvent is called each time the 3D world should be
-// rendered, before the renderEvent.  The state of your application
-// should be updated here.
 app.updateEvent.addEventListener(function (frame) {
-    // get the position and orientation (the "pose") of the user
-    // in the local coordinate frame.
-    var userPose = app.context.getEntityPose(app.context.user);
-    // set the pose of our THREE user object
-    if (userPose.poseStatus & Argon.PoseStatus.KNOWN) {
-        user.position.copy(userPose.position);
-        user.quaternion.copy(userPose.orientation);
-    }
+
     // get the pose of the "stage" to anchor our content.
     // The "stage" defines an East-Up-South coordinate system
     // (assuming geolocation is available).
@@ -90,6 +54,8 @@ app.updateEvent.addEventListener(function (frame) {
     // the first time through, we create a geospatial position for
     // the box somewhere near us
     if (!boxInit) {
+        var userPose = app.context.getEntityPose(app.context.user);
+
         var defaultFrame = app.context.getDefaultReferenceFrame();
         // set the box's position to 10 meters away from the user.
         // First, clone the userPose postion, and add 10 to the X
@@ -98,10 +64,6 @@ app.updateEvent.addEventListener(function (frame) {
         // set the value of the box Entity to this local position, by
         // specifying the frame of reference to our local frame
         boxGeoEntity.position.setValue(boxPos_1, defaultFrame);
-        // orient the box according to the local world frame
-        boxGeoEntity.orientation.setValue(Cesium.Quaternion.IDENTITY);
-        // now, we want to move the box's coordinates to the FIXED frame, so
-        // the box doesn't move if the local coordinate system origin changes.
         if (Argon.convertEntityReferenceFrame(boxGeoEntity, frame.time, ReferenceFrame.FIXED)) {
             // we will keep trying to reset it to FIXED until it works!
             boxInit = true;
@@ -127,27 +89,6 @@ app.updateEvent.addEventListener(function (frame) {
     // rotate the boxes at a constant speed, independent of frame rates
     // to make it a little less boring
     box.rotateY(3 * frame.deltaTime / 10000);
-    //
-    var userPos = user.getWorldPosition();
-    var boxPos = box.getWorldPosition();
-    var distanceToBox = userPos.distanceTo(boxPos);
-    // cartographicDegrees is a 3 element array containing [longitude, latitude, height]
-    var gpsCartographicDeg = [0, 0, 0];
-    // create some feedback text
-    var infoText = "Geospatial Argon example:<br>";
-    // get user position in global coordinates
-    var boxPoseFIXED = app.context.getEntityPose(boxGeoEntity, ReferenceFrame.FIXED);
-
-    if (lastInfoText !== infoText) {
-        locationElements[0].innerHTML = infoText;
-        locationElements[1].innerHTML = infoText;
-        lastInfoText = infoText;
-    }
-    if (lastBoxText !== boxLabelText) {
-        boxLocDiv.innerHTML = boxLabelText;
-        boxLocDiv2.innerHTML = boxLabelText;
-        lastBoxText = boxLabelText;
-    }
 });
 // renderEvent is fired whenever argon wants the app to update its display
 app.renderEvent.addEventListener(function () {
