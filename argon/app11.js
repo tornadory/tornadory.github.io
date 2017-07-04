@@ -19,19 +19,19 @@ var boxGeoObject = new THREE.Object3D;
 var box = new THREE.Object3D();
 var loader = new THREE.TextureLoader();
 loader.load('box.png', function (texture) {
-    var geometry = new THREE.BoxGeometry(2, 2, 2);
+    var geometry = new THREE.BoxGeometry1, 1, 1);
     var material = new THREE.MeshBasicMaterial({ map: texture });
     var mesh = new THREE.Mesh(geometry, material);
     box.add(mesh);
 });
 
 boxGeoObject.add(box);
-boxGeoObject.position.z = -10;
-boxGeoObject.position.x = 5;
-boxGeoObject.position.y = 5;
+boxGeoObject.position.z = 2;
+boxGeoObject.position.x = 2;
+boxGeoObject.position.y = 2;
 scene.add(boxGeoObject);
 
-boxGeoObject.position = new new THREE.Vector3(5,0,5);
+// boxGeoObject.position = new THREE.Vector3(5,0,5);
 
 
 app.updateEvent.addEventListener(function (frame) {
