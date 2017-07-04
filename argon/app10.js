@@ -113,20 +113,14 @@ app.renderEvent.addEventListener(function () {
         camera.quaternion.copy(subview.pose.orientation);
         // the underlying system provide a full projection matrix
         // for the camera.
-        camera.projectionMatrix.fromArray(subview.frustum.projectionMatrix);
+        // camera.projectionMatrix.fromArray(subview.frustum.projectionMatrix);
         // set the webGL rendering parameters and render this view
         // set the viewport for this view
-        var _b = subview.renderViewport, x = _b.x, y = _b.y, width = _b.width, height = _b.height;
-        renderer.setViewport(x, y, width, height);
-        renderer.setScissor(x, y, width, height);
-        renderer.setScissorTest(true);
+        // var _b = subview.renderViewport, x = _b.x, y = _b.y, width = _b.width, height = _b.height;
+        // renderer.setViewport(x, y, width, height);
+        // renderer.setScissor(x, y, width, height);
+        // renderer.setScissorTest(true);
         renderer.render(scene, camera);
-        // set the viewport for this view
-        var _c = subview.viewport, x = _c.x, y = _c.y, width = _c.width, height = _c.height;
-        // set the CSS rendering up, by computing the FOV, and render this view
-        camera.fov = THREE.Math.radToDeg(frustum.fovy);
-        // adjust the hud
-        hud.setViewport(x, y, width, height, subview.index);
-        hud.render(subview.index);
+
     }
 });
