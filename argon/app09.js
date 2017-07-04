@@ -39,6 +39,7 @@ boxGeoObject.position.x = 5;
 boxGeoObject.position.y = 5;
 scene.add(boxGeoObject);
 
+var boxInit = false;
 
 app.updateEvent.addEventListener(function (frame) {
 
