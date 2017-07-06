@@ -18,6 +18,11 @@ loader.load('box.png', function (texture) {
     box.add(mesh);
 });
 
+app.view.setLayers([
+    { source: renderer.domElement }
+]);
+
+
 // boxGeoObject.add(box);
 // boxGeoObject.position.z = 2;
 // boxGeoObject.position.x = 2;
