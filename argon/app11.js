@@ -8,15 +8,23 @@ scene.add(camera);
 
 var renderer = new THREE.WebGLRenderer();
 
-var boxGeoObject = new THREE.Object3D;
-var box = new THREE.Object3D();
-var loader = new THREE.TextureLoader();
-loader.load('box.png', function (texture) {
-    var geometry = new THREE.BoxGeometry(2, 2, 2);
-    var material = new THREE.MeshBasicMaterial({ map: texture });
-    var mesh = new THREE.Mesh(geometry, material);
-    box.add(mesh);
-});
+// var boxGeoObject = new THREE.Object3D;
+// var box = new THREE.Object3D();
+// var loader = new THREE.TextureLoader();
+// loader.load('box.png', function (texture) {
+//     var geometry = new THREE.BoxGeometry(2, 2, 2);
+//     var material = new THREE.MeshBasicMaterial({ map: texture });
+//     var mesh = new THREE.Mesh(geometry, material);
+//     box.add(mesh);
+// });
+// scene.add(box);
+
+var geometry = new THREE.BoxGeometry(2,2,2);
+var material = new THREE.MeshBasicMaterial({color:'red'});
+var mesh = new THREE.Mesh(geometry, material);
+
+scene.add(mesh);
+mesh.position.z = -3;
 
 app.view.setLayers([
     { source: renderer.domElement }
@@ -27,11 +35,10 @@ app.view.setLayers([
 // boxGeoObject.position.z = 2;
 // boxGeoObject.position.x = 2;
 // boxGeoObject.position.y = 2;
-scene.add(box);
 
 // boxGeoObject.position = new THREE.Vector3(5,0,5);
 camera.position.z = 10;
-
+document.querySelector('#hud').appendChild(renderer.domElement);
 app.updateEvent.addEventListener(function (frame) {
 
     // get the pose of the "stage" to anchor our content.
