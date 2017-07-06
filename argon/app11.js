@@ -58,11 +58,11 @@ app.updateEvent.addEventListener(function (frame) {
 
     box.rotateY(3 * frame.deltaTime / 10000);
 });
+
+
 // renderEvent is fired whenever argon wants the app to update its display
 app.renderEvent.addEventListener(function () {
-  // requestAnimationFrame(loop);
-  renderer.setSize(300, 300);
-  renderer.render(scene, camera);
+
     // set the renderers to know the current size of the viewport.
     // This is the full size of the viewport, which would include
     // both views if we are in stereo viewing mode
@@ -92,3 +92,15 @@ app.renderEvent.addEventListener(function () {
     //
     // }
 });
+
+
+var loop = function(){
+  //console.log('hello');
+  requestAnimationFrame(loop);
+  //box.rotation.x += 0.1;
+  //box.rotation.y += 0.1;
+  renderer.render(scene, camera);
+}
+
+loop();
+renderer.setSize(300, 300);
