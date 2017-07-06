@@ -61,7 +61,7 @@ app.updateEvent.addEventListener(function (frame) {
 // renderEvent is fired whenever argon wants the app to update its display
 app.renderEvent.addEventListener(function () {
   // requestAnimationFrame(loop);
-
+  renderer.setSize(300, 300);
   renderer.render(scene, camera);
     // set the renderers to know the current size of the viewport.
     // This is the full size of the viewport, which would include
