@@ -1,7 +1,12 @@
 
 var app = Argon.init();
+
+var container = document.querySelector('#hud');
+
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera();
+var camera = new THREE.PerspectiveCamera(75,
+container.clientWidth / container.clientHeight,
+0.1, 1000);
 // var stage = new THREE.Object3D;
 scene.add(camera);
 // scene.add(stage);
@@ -38,7 +43,7 @@ app.view.setLayers([
 
 // boxGeoObject.position = new THREE.Vector3(5,0,5);
 camera.position.z = 10;
-document.querySelector('#hud').appendChild(renderer.domElement);
+container.appendChild(renderer.domElement);
 app.updateEvent.addEventListener(function (frame) {
 
     // get the pose of the "stage" to anchor our content.
