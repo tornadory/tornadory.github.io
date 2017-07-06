@@ -56,7 +56,7 @@ app.updateEvent.addEventListener(function (frame) {
     //     stage.quaternion.copy(stagePose.orientation);
     // }
 
-    box.rotateY(3 * frame.deltaTime / 10000);
+    mesh.rotateY(3 * frame.deltaTime / 10000);
 });
 
 
