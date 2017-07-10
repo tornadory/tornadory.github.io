@@ -8,6 +8,9 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMapEnabled = true;
 renderer.shadowMapSoft = true;
 
+controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.addEventListener('change', render);
+
 var axis = new THREE.AxisHelper(10);
 scene.add(axis);
 
