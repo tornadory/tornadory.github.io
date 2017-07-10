@@ -57,18 +57,15 @@ app.view.setLayers([
 // Here, we retrieve the hud element and use hud.appendChild to append it and a clone
 // to the two CSS3DArgonHUD hudElements.  We are retrieve the two
 // elements with the 'location' class so we can update them both.
-
-// var hudContent = document.getElementById('hud');
-// hud.appendChild(hudContent);
-// var locationElements = hud.domElement.getElementsByClassName('location');
-
+var hudContent = document.getElementById('hud');
+hud.appendChild(hudContent);
+var locationElements = hud.domElement.getElementsByClassName('location');
 //  We also move the description box to the left Argon HUD.
 // We don't duplicated it because we only use it in mono mode
-
-// var holder = document.createElement('div');
-// var hudDescription = document.getElementById('description');
-// holder.appendChild(hudDescription);
-// hudContent.appendChild(holder);
+var holder = document.createElement('div');
+var hudDescription = document.getElementById('description');
+holder.appendChild(hudDescription);
+hudContent.appendChild(holder);
 
 
 // Tell argon what local coordinate system you want.  The default coordinate
@@ -286,11 +283,11 @@ app.updateEvent.addEventListener(function (frame) {
     else {
         boxLabelText = "a wooden box!<br>Location unknown";
     }
-    // if (lastInfoText !== infoText) {
-    //     locationElements[0].innerHTML = infoText;
-    //     locationElements[1].innerHTML = infoText;
-    //     lastInfoText = infoText;
-    // }
+    if (lastInfoText !== infoText) {
+        locationElements[0].innerHTML = infoText;
+        locationElements[1].innerHTML = infoText;
+        lastInfoText = infoText;
+    }
     if (lastBoxText !== boxLabelText) {
         boxLocDiv.innerHTML = boxLabelText;
         boxLocDiv2.innerHTML = boxLabelText;
