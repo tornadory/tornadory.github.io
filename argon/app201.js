@@ -1,3 +1,5 @@
+/// <reference types="@argonjs/argon" />
+/// <reference types="three" />
 // grab some handles on APIs we use
 var Cesium = Argon.Cesium;
 var Cartesian3 = Argon.Cesium.Cartesian3;
@@ -7,32 +9,22 @@ var CesiumMath = Argon.Cesium.CesiumMath;
 // set up Argon
 var app = Argon.init();
 //app.view.element.style.zIndex = 0;
-
-
 // this app uses geoposed content, so subscribe to geolocation updates
 app.context.subscribeGeolocation({ enableHighAccuracy: true });
-
-
-
 // set up THREE.  Create a scene, a perspective camera and an object
 // for the user's location
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera();
 var stage = new THREE.Object3D;
-var user = new THREE.Object3D; //
+var user = new THREE.Object3D;
 scene.add(camera);
 scene.add(stage);
 scene.add(user);
-
-
-
 // The CSS3DArgonRenderer supports mono and stereo views.  Currently
 // not using it in this example, but left it in the code in case we
 // want to add an HTML element near either geo object.
-
 // The CSS3DArgonHUD is a place to put things that appear
 // fixed to the screen (heads-up-display).
-
 // In this demo, we are  rendering the 3D graphics with WebGL,
 // using the standard WebGLRenderer, and using the CSS3DArgonHUD
 // to manage the 2D display fixed content
@@ -51,8 +43,6 @@ app.view.setLayers([
     { source: cssRenderer.domElement },
     { source: hud.domElement },
 ]);
-
-
 // We put some elements in the index.html, for convenience.
 // Here, we retrieve the hud element and use hud.appendChild to append it and a clone
 // to the two CSS3DArgonHUD hudElements.  We are retrieve the two
@@ -66,21 +56,16 @@ var holder = document.createElement('div');
 var hudDescription = document.getElementById('description');
 holder.appendChild(hudDescription);
 hudContent.appendChild(holder);
-
-
 // Tell argon what local coordinate system you want.  The default coordinate
 // frame used by Argon is Cesium's FIXED frame, which is centered at the center
 // of the earth and oriented with the earth's axes.
-//
 // The FIXED frame is inconvenient for a number of reasons: the numbers used are
 // large and cause issues with rendering, and the orientation of the user's "local
 // view of the world" is different that the FIXED orientation (my perception of "up"
 // does not correspond to one of the FIXED axes).
-//
 // Therefore, Argon uses a local coordinate frame that sits on a plane tangent to
 // the earth near the user's current location.  This frame automatically changes if the
 // user moves more than a few kilometers.
-//
 // The EUS frame cooresponds to the typical 3D computer graphics coordinate frame, so we use
 // that here.  The other option Argon supports is localOriginEastNorthUp, which is
 // more similar to what is used in the geospatial industry
@@ -97,13 +82,14 @@ app.context.setDefaultReferenceFrame(app.context.localOriginEastUpSouth);
 // the cube position.
 // create a 100m cube with a Buzz texture on it, that we will attach to a geospatial object at Georgia Tech
 var buzz = new THREE.Object3D;
-var bzgeometry = new THREE.BoxGeometry(10, 10, 10);
-var bzmaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-var bzmesh = new THREE.Mesh(bzgeometry, bzmaterial);
-bzmesh.scale.set(100, 100, 100);
-buzz.add(bzmesh);
-
-
+var loader = new THREE.TextureLoader();
+loader.load('buzz.png', function (texture) {
+    var geometry = new THREE.BoxGeometry(10, 10, 10);
+    var material = new THREE.MeshBasicMaterial({ map: texture });
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.scale.set(100, 100, 100);
+    buzz.add(mesh);
+});
 // have our geolocated object start somewhere, in this case
 // near Georgia Tech in Atlanta.
 // you should probably adjust this to a spot closer to you
@@ -116,8 +102,6 @@ var gatechGeoEntity = new Cesium.Entity({
 var gatechGeoTarget = new THREE.Object3D;
 gatechGeoTarget.add(buzz);
 scene.add(gatechGeoTarget);
-
-
 // create a 1m cube with a wooden box texture on it, that we will attach to the geospatial object when we create it
 // Box texture from https://www.flickr.com/photos/photoshoproadmap/8640003215/sizes/l/in/photostream/
 //, licensed under https://creativecommons.org/licenses/by/2.0/legalcode
@@ -138,8 +122,6 @@ var boxGeoEntity = new Argon.Cesium.Entity({
 boxGeoObject.add(box);
 boxGeoObject.position.z = -10;
 scene.add(boxGeoObject);
-
-
 // Create a DIV to use to label the position and distance of the cube
 var boxLocDiv = document.getElementById("box-location");
 var boxLocDiv2 = boxLocDiv.cloneNode(true);
@@ -147,8 +129,6 @@ var boxLabel = new THREE.CSS3DSprite([boxLocDiv, boxLocDiv2]);
 boxLabel.scale.set(0.02, 0.02, 0.02);
 boxLabel.position.set(0, 1.25, 0);
 boxGeoObject.add(boxLabel);
-
-
 // putting position and orientation in the constructor above is the
 // equivalent of doing this:
 //
