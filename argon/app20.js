@@ -310,12 +310,15 @@ app.renderEvent.addEventListener(function () {
     hud.setSize(viewport.width, viewport.height);
     // There is 1 subview in monocular mode, 2 in stereo mode.
     // If we are in mono view, show the description.  If not, hide it,
-    if (app.view.subviews.length > 1) {
-        holder.style.display = 'none';
-    }
-    else {
-        holder.style.display = 'block';
-    }
+
+    // if (app.view.subviews.length > 1) {
+    //     holder.style.display = 'none';
+    // }
+    // else {
+    //     holder.style.display = 'block';
+    // }
+
+
     // there is 1 subview in monocular mode, 2 in stereo mode
     for (var _i = 0, _a = app.view.subviews; _i < _a.length; _i++) {
         var subview = _a[_i];
