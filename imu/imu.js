@@ -11,8 +11,9 @@ if (window.DeviceOrientationEvent) {
         imudatainfo.innerHTML = event.acceleration.x * 2 + " - " + event.acceleration.y * 2;
     }, true);
 } else {
-    window.addEventListener("MozOrientation", function () {
-        // tilt([orientation.x * 50, orientation.y * 50]);
-        imudatainfo.innerHTML = orientation.x * 50 +"- " + orientation.y * 50;
-    }, true);
+    imudatainfo.innerHTML = "no gyro support";
+    // window.addEventListener("MozOrientation", function () {
+    //     // tilt([orientation.x * 50, orientation.y * 50]);
+    //     imudatainfo.innerHTML = orientation.x * 50 +"- " + orientation.y * 50;
+    // }, true);
 }
