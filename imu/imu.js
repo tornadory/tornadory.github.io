@@ -1,9 +1,11 @@
 var imudatainfo = $('#imudata');
 
 if (window.DeviceOrientationEvent) {
-  console.log("window.DeviceOrientationEvent supported");
+  console.log("window.DeviceOrientationEvent supported"); //this way
     window.addEventListener("deviceorientation", function () {
         imudatainfo.innerHTML = event.beta + " - " + event.gamma;
+        console.log("window.DeviceOrientationEvent " + event.beta + " - " + event.gamma);
+        console.log(event);
         // tilt([event.beta, event.gamma]);
     }, true);
 } else if (window.DeviceMotionEvent) {
